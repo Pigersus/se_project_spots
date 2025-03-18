@@ -36,3 +36,15 @@ initialCards.push(obj3);
 initialCards.push(obj4);
 initialCards.push(obj5);
 initialCards.push(obj6);
+
+let editModal = document.querySelector("#edit-modal");
+let editIcon = document.querySelector(".profile__edit-btn");
+let editModalCloseIcon = editModal.querySelector(".modal__close-btn");
+
+editIcon.addEventListener("click", function () {
+  editModal.classList.add("modal__opened");
+});
+
+editModalCloseIcon.addEventListener("click", function () {
+  editModal.classList.toggle("modal__opened");
+});
