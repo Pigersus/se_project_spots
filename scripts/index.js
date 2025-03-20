@@ -40,11 +40,29 @@ initialCards.push(obj6);
 let editModal = document.querySelector("#edit-modal");
 let editIcon = document.querySelector(".profile__edit-btn");
 let editModalCloseIcon = editModal.querySelector(".modal__close-btn");
+let editName = editModal.querySelector("#name");
+let editDescription = editModal.querySelector("#description");
+let editFormModal = editModal.querySelector(".modal__form");
+let profileName = document.querySelector(".profile__name");
+let profileDescription = document.querySelector(".profile__description");
 
 editIcon.addEventListener("click", function () {
-  editModal.classList.add("modal__opened");
+  editModal.classList.toggle("modal__opened");
+  console.log(editName);
+  editName.value = profileName.textContent;
+  editDescription.value = profileDescription.textContent;
 });
 
 editModalCloseIcon.addEventListener("click", function () {
   editModal.classList.toggle("modal__opened");
 });
+
+function handleEditFormSubmit(evt) {
+  evt.preventDefault();
+  debugger;
+  profileName.textContent = editName.value;
+  profileDescription.textContent = editDescription.value;
+  editModal.classList.toggle("modal__opened");
+}
+
+editFormModal.addEventListener("submit", handleEditFormSubmit);
