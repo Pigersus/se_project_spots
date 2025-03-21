@@ -37,14 +37,33 @@ initialCards.push(obj4);
 initialCards.push(obj5);
 initialCards.push(obj6);
 
-let editModal = document.querySelector("#edit-modal");
-let editIcon = document.querySelector(".profile__edit-btn");
-let editModalCloseIcon = editModal.querySelector(".modal__close-btn");
-let editName = editModal.querySelector("#name");
-let editDescription = editModal.querySelector("#description");
-let editFormModal = editModal.querySelector(".modal__form");
-let profileName = document.querySelector(".profile__name");
-let profileDescription = document.querySelector(".profile__description");
+const editModal = document.querySelector("#edit-modal");
+const editIcon = document.querySelector(".profile__edit-btn");
+const editModalCloseIcon = editModal.querySelector(".modal__close-btn");
+const editName = editModal.querySelector("#name");
+const editDescription = editModal.querySelector("#description");
+const editFormModal = editModal.querySelector(".modal__form");
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
+
+const cardTemplate = document.querySelector("#card-template");
+const cardList = document.querySelector(".cards__list");
+
+function getCardElement(data) {
+  console.log(data);
+  const cardElement = cardTemplate.content
+    .querySelector(".card")
+    .cloneNode(true);
+
+  const cardNameEl = cardElement.querySelector(".card__title");
+  const cardImgEl = cardElement.querySelector(".card__image");
+
+  cardImgEl.setAttribute("src", data.link);
+  cardImgEl.setAttribute("alt", data.name);
+  cardNameEl.textContent = data.name;
+
+  return cardElement;
+}
 
 editIcon.addEventListener("click", function () {
   editModal.classList.toggle("modal__opened");
@@ -59,10 +78,14 @@ editModalCloseIcon.addEventListener("click", function () {
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  debugger;
   profileName.textContent = editName.value;
   profileDescription.textContent = editDescription.value;
   editModal.classList.toggle("modal__opened");
 }
 
 editFormModal.addEventListener("submit", handleEditFormSubmit);
+
+for (let i = 0; i < initialCards.length; i++) {
+  const cardElement = getCardElement(initialCards[i]);
+  cardList.prepend(cardElement);
+}
