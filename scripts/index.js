@@ -1,41 +1,29 @@
-let initialCards = [];
-
-let obj1 = {
-  name: "Val Thorens",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-};
-
-let obj2 = {
-  name: "Restaurant terrace",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-};
-
-let obj3 = {
-  name: "An outdoor cafe",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-};
-
-let obj4 = {
-  name: "A very long bridge, over the forest and through the trees",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-};
-
-let obj5 = {
-  name: "Tunnel with morning light",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-};
-
-let obj6 = {
-  name: "Mountain house",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-};
-
-initialCards.push(obj1);
-initialCards.push(obj2);
-initialCards.push(obj3);
-initialCards.push(obj4);
-initialCards.push(obj5);
-initialCards.push(obj6);
+const initialCards = [
+  {
+    name: "Val Thorens",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
+  },
+  {
+    name: "Restaurant terrace",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
+  },
+  {
+    name: "An outdoor cafe",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
+  },
+  {
+    name: "A very long bridge, over the forest and through the trees",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
+  },
+  {
+    name: "Tunnel with morning light",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
+  },
+  {
+    name: "Mountain house",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
+  },
+];
 
 const editModal = document.querySelector("#edit-modal");
 const editIcon = document.querySelector(".profile__edit-btn");
@@ -50,7 +38,6 @@ const cardTemplate = document.querySelector("#card-template");
 const cardList = document.querySelector(".cards__list");
 
 function getCardElement(data) {
-  console.log(data);
   const cardElement = cardTemplate.content
     .querySelector(".card")
     .cloneNode(true);
@@ -58,29 +45,32 @@ function getCardElement(data) {
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardImgEl = cardElement.querySelector(".card__image");
 
-  cardImgEl.setAttribute("src", data.link);
-  cardImgEl.setAttribute("alt", data.name);
+  cardImgEl.src = data.link;
+  cardImgEl.alt = data.name;
   cardNameEl.textContent = data.name;
 
   return cardElement;
 }
 
+function toggleModal() {
+  editModal.classList.toggle("modal_opened");
+}
+
 editIcon.addEventListener("click", function () {
-  editModal.classList.toggle("modal__opened");
-  console.log(editName);
+  toggleModal();
   editName.value = profileName.textContent;
   editDescription.value = profileDescription.textContent;
 });
 
 editModalCloseIcon.addEventListener("click", function () {
-  editModal.classList.toggle("modal__opened");
+  toggleModal();
 });
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = editName.value;
   profileDescription.textContent = editDescription.value;
-  editModal.classList.toggle("modal__opened");
+  toggleModal();
 }
 
 editFormModal.addEventListener("submit", handleEditFormSubmit);
