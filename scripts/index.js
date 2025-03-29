@@ -2,26 +2,32 @@ const initialCards = [
   {
     name: "Val Thorens",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
+    liked: false,
   },
   {
     name: "Restaurant terrace",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
+    liked: false,
   },
   {
     name: "An outdoor cafe",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
+    liked: false,
   },
   {
     name: "A very long bridge, over the forest and through the trees",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
+    liked: false,
   },
   {
     name: "Tunnel with morning light",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
+    liked: false,
   },
   {
     name: "Mountain house",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
+    liked: false,
   },
 ];
 
@@ -51,47 +57,55 @@ function getCardElement(data) {
 
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardImgEl = cardElement.querySelector(".card__image");
+  const cardLikeBtn = cardElement.querySelector(".card__like-btn");
 
   cardImgEl.src = data.link;
   cardImgEl.alt = data.name;
   cardNameEl.textContent = data.name;
 
+  function toggleLike() {
+    data.liked = !data.liked;
+    if (data.liked) {
+      cardLikeBtn.classList.add("card__like-btn_liked");
+    } else {
+      cardLikeBtn.classList.remove("card__like-btn_liked");
+    }
+  }
+
+  cardLikeBtn.addEventListener("click", toggleLike);
+
   return cardElement;
 }
 
-function toggleEditModal() {
-  editModal.classList.toggle("modal_opened");
+function toggleModal(modal) {
+  modal.classList.toggle("modal_opened");
 }
 
 editIcon.addEventListener("click", function () {
-  toggleEditModal();
+  toggleModal(editModal);
   editName.value = profileName.textContent;
   editDescription.value = profileDescription.textContent;
 });
 
 editModalCloseIcon.addEventListener("click", function () {
-  toggleEditModal();
+  toggleModal(editModal);
 });
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = editName.value;
   profileDescription.textContent = editDescription.value;
-  toggleEditModal();
-}
-
-function toggleNewPostModal() {
-  newPostModal.classList.toggle("modal_opened");
+  toggleModal(editModal);
 }
 
 newPostIcon.addEventListener("click", function () {
-  toggleNewPostModal();
+  toggleModal(newPostModal);
   newPostCaption.value = "";
   newPostImageLink.value = "";
 });
 
 newPostModalCloseIcon.addEventListener("click", function () {
-  toggleNewPostModal();
+  toggleModal(newPostModal);
 });
 
 function handleNewPostFormSubmit(evt) {
@@ -99,11 +113,12 @@ function handleNewPostFormSubmit(evt) {
   const newCard = {
     name: newPostCaption.value,
     link: newPostImageLink.value,
+    liked: false,
   };
   console.log(newCard.name);
   console.log(newCard.link);
   cardList.prepend(getCardElement(newCard));
-  toggleNewPostModal();
+  toggleModal(newPostModal);
 }
 
 editFormModal.addEventListener("submit", handleEditFormSubmit);
