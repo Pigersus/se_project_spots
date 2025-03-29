@@ -34,6 +34,13 @@ const editFormModal = editModal.querySelector(".modal__form");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
+const newPostModal = document.querySelector("#new-post-modal");
+const newPostIcon = document.querySelector(".profile__add-btn");
+const newPostModalCloseIcon = newPostModal.querySelector(".modal__close-btn");
+const newPostImageLink = newPostModal.querySelector("#image-link");
+const newPostCaption = newPostModal.querySelector("#caption");
+const newPostFormModal = newPostModal.querySelector(".modal__form");
+
 const cardTemplate = document.querySelector("#card-template");
 const cardList = document.querySelector(".cards__list");
 
@@ -52,30 +59,57 @@ function getCardElement(data) {
   return cardElement;
 }
 
-function toggleModal() {
+function toggleEditModal() {
   editModal.classList.toggle("modal_opened");
 }
 
 editIcon.addEventListener("click", function () {
-  toggleModal();
+  toggleEditModal();
   editName.value = profileName.textContent;
   editDescription.value = profileDescription.textContent;
 });
 
 editModalCloseIcon.addEventListener("click", function () {
-  toggleModal();
+  toggleEditModal();
 });
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = editName.value;
   profileDescription.textContent = editDescription.value;
-  toggleModal();
+  toggleEditModal();
+}
+
+function toggleNewPostModal() {
+  newPostModal.classList.toggle("modal_opened");
+}
+
+newPostIcon.addEventListener("click", function () {
+  toggleNewPostModal();
+  newPostCaption.value = "";
+  newPostImageLink.value = "";
+});
+
+newPostModalCloseIcon.addEventListener("click", function () {
+  toggleNewPostModal();
+});
+
+function handleNewPostFormSubmit(evt) {
+  evt.preventDefault();
+  const newCard = {
+    name: newPostCaption.value,
+    link: newPostImageLink.value,
+  };
+  console.log(newCard.name);
+  console.log(newCard.link);
+  cardList.prepend(getCardElement(newCard));
+  toggleNewPostModal();
 }
 
 editFormModal.addEventListener("submit", handleEditFormSubmit);
+newPostFormModal.addEventListener("submit", handleNewPostFormSubmit);
 
-for (let i = 0; i < initialCards.length; i++) {
-  const cardElement = getCardElement(initialCards[i]);
+initialCards.forEach((item) => {
+  const cardElement = getCardElement(item);
   cardList.prepend(cardElement);
-}
+});
