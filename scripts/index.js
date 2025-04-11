@@ -47,8 +47,23 @@ const newPostImageLink = newPostModal.querySelector("#image-link");
 const newPostCaption = newPostModal.querySelector("#caption");
 const newPostFormModal = newPostModal.querySelector(".modal__form");
 
+const imageModal = document.querySelector("#image-modal");
+const imageModalImage = imageModal.querySelector(".modal__image-modal-image");
+const imageModalCaption = imageModal.querySelector(".modal__image-caption");
+const imageModalCloseBtn = imageModal.querySelector(".modal__image-close-btn");
+
 const cardTemplate = document.querySelector("#card-template");
 const cardList = document.querySelector(".cards__list");
+
+console.log(imageModal);
+
+function toggleModal(modal) {
+  modal.classList.toggle("modal_opened");
+}
+
+function closeImageModal() {
+  imageModal.classList.remove("modal_opened");
+}
 
 function getCardElement(data) {
   const cardElement = cardTemplate.content
@@ -77,14 +92,23 @@ function getCardElement(data) {
     cardElement.remove();
   }
 
+  function toggleImage() {
+    toggleModal(imageModal);
+  }
+
+  function imageBox() {
+    toggleImage(imageModal);
+    imageModalImage.src = cardImgEl.src;
+    imageModalImage.alt = cardImgEl.alt;
+    imageModalCaption.textContent = cardNameEl.textContent;
+  }
+
   cardLikeBtn.addEventListener("click", toggleLike);
   cardDeleteBtn.addEventListener("click", deleteCard);
+  cardImgEl.addEventListener("click", imageBox);
+  imageModalCloseBtn.addEventListener("click", closeImageModal);
 
   return cardElement;
-}
-
-function toggleModal(modal) {
-  modal.classList.toggle("modal_opened");
 }
 
 editIcon.addEventListener("click", function () {

@@ -7,6 +7,10 @@
   margin-bottom: 12px;
 }
 
+.card__image:hover {
+  cursor: pointer;
+}
+
 .card__content {
   display: flex;
   align-items: center;
@@ -70,6 +74,7 @@
 
 .card__delete-btn:hover {
   background-image: url(../images/delete-hover.svg);
+  cursor: pointer;
 }
 
 .card_hidden {
