@@ -62,7 +62,7 @@ function toggleModal(modal) {
 }
 
 function closeImageModal() {
-  imageModal.classList.remove("modal_opened");
+  toggleModal(imageModal);
 }
 
 function getCardElement(data) {
@@ -96,7 +96,7 @@ function getCardElement(data) {
     toggleModal(imageModal);
   }
 
-  function imageBox() {
+  function imageActivation() {
     toggleImage(imageModal);
     imageModalImage.src = cardImgEl.src;
     imageModalImage.alt = cardImgEl.alt;
@@ -105,8 +105,7 @@ function getCardElement(data) {
 
   cardLikeBtn.addEventListener("click", toggleLike);
   cardDeleteBtn.addEventListener("click", deleteCard);
-  cardImgEl.addEventListener("click", imageBox);
-  imageModalCloseBtn.addEventListener("click", closeImageModal);
+  cardImgEl.addEventListener("click", imageActivation);
 
   return cardElement;
 }
@@ -130,13 +129,13 @@ function handleEditFormSubmit(evt) {
 
 newPostIcon.addEventListener("click", function () {
   toggleModal(newPostModal);
-  newPostCaption.value = "";
-  newPostImageLink.value = "";
 });
 
 newPostModalCloseIcon.addEventListener("click", function () {
   toggleModal(newPostModal);
 });
+
+imageModalCloseBtn.addEventListener("click", closeImageModal);
 
 function handleNewPostFormSubmit(evt) {
   evt.preventDefault();
@@ -149,6 +148,8 @@ function handleNewPostFormSubmit(evt) {
   console.log(newCard.link);
   cardList.prepend(getCardElement(newCard));
   toggleModal(newPostModal);
+  newPostCaption.value = "";
+  newPostImageLink.value = "";
 }
 
 editFormModal.addEventListener("submit", handleEditFormSubmit);

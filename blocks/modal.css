@@ -24,6 +24,11 @@
   animation: fade-in 0.25s 1 forwards;
 }
 
+.modal_transition {
+  visibility: visible;
+  animation: fade-out 0.25s 1 forwards;
+}
+
 .modal__container {
   background: #fff;
   padding: 32px 50px;
@@ -217,5 +222,14 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
