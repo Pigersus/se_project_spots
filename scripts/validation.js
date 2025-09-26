@@ -33,14 +33,26 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
+function resetValidation(config, inputList){
+  inputList.forEach((input) => hideInputError(config, input));
+}
+
+function disableButton(config, buttonElement){
+  buttonElement.disabled = true;
+  buttonElement.classList.add(config.disableButtonClass);
+}
+
+function enableButton(config, buttonElement){
+  buttonElement.disabled = false;
+  buttonElement.classList.remove(config.disableButtonClass);
+}
+
 const toggleButtonState = (config, inputList, buttonElement) => {
   console.log(hasInvalidInput(inputList));
   if (hasInvalidInput(inputList)) {
-    buttonElement.disabled = true;
-    buttonElement.classList.add(config.disableButtonClass);
+    disableButton(config, buttonElement);
   } else {
-    buttonElement.disabled = false;
-    buttonElement.classList.remove(config.disableButtonClass);
+    enableButton(config, buttonElement);
   }
 };
 
