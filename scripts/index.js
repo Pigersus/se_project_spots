@@ -72,7 +72,7 @@ function closeModal(modal) {
 }
 
 function closeImageModal() {
-  toggleModal(imageModal);
+  closeModal(imageModal);
 }
 
 modals.forEach((modal) => {
@@ -117,7 +117,7 @@ function getCardElement(data) {
   }
 
   function toggleImage() {
-    toggleModal(imageModal);
+    openModal(imageModal);
   }
 
   function imageActivation() {
@@ -172,8 +172,8 @@ function handleNewPostFormSubmit(evt) {
   console.log(newCard.link);
   cardList.prepend(getCardElement(newCard));
   toggleModal(newPostModal);
-  newPostCaption.value = "";
-  newPostImageLink.value = "";
+  newPostCaption.value = evt.target.reset();
+  newPostImageLink.value = evt.target.reset();
 }
 
 editFormModal.addEventListener("submit", handleEditFormSubmit);
